@@ -2,7 +2,6 @@ import 'package:bloc_pattern/model/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_pattern/bloc/mybloc.dart';
 
-// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
   MyBloc myBloc = MyBloc();
 
@@ -16,10 +15,11 @@ class HomePage extends StatelessWidget {
       body: Container(
         child: Center(
           child: StreamBuilder(
-              stream: myBloc.sinkInput,
-              builder: (context, AsyncSnapshot<Modeldata> snapshot) {
-                return buildList(snapshot);
-              }),
+            stream: myBloc.sinkInput,
+            builder: (context, AsyncSnapshot<Modeldata> snapshot) {
+              return buildList(snapshot);
+            },
+          ),
         ),
       ),
     );
@@ -27,11 +27,18 @@ class HomePage extends StatelessWidget {
 
   Widget buildList(AsyncSnapshot<Modeldata> snapshot) {
     return ListTile(
-      title: Text(
-        snapshot.hasData ? snapshot.data.title.toString() : "No Data",
-        style: TextStyle(
-            color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.w600),
-      ),
-    );
+        title: Text(
+          snapshot.hasData
+              ? snapshot.data.title.toString().toUpperCase()
+              : "No Data",
+          style: TextStyle(
+              color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+          textAlign: TextAlign.center,
+        ),
+        trailing: Icon(
+          Icons.arrow_right,
+          color: Colors.black,
+          size: 30.0,
+        ));
   }
 }
